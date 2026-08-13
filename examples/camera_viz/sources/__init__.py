@@ -101,24 +101,25 @@ def build_local_camera(spec: dict) -> List[FrameSource]:
             raise ValueError(
                 f"build_local_camera: v4l2 stereo source can't be mono. Use type v4l2."
             )
-        return [
-            V4l2Source(
-                name=name+' left',
-                device=spec.get("device_left", "/dev/video0"),
-                width=int(spec["width"]),
-                height=int(spec["height"]),
-                fps=float(spec.get("fps", 30.0)),
-                fourcc=spec.get("fourcc"),
-            ),
-            V4l2Source(
-                name=name+' right',
-                device=spec.get("device_right", "/dev/video1"),
-                width=int(spec["width"]),
-                height=int(spec["height"]),
-                fps=float(spec.get("fps", 30.0)),
-                fourcc=spec.get("fourcc"),
-            ),
-        ]
+        left = V4l2Source(
+            name=name+' left',
+            device=spec.get("device_left", "/dev/video0"),
+            width=int(spec["width"]),
+            height=int(spec["height"]),
+            fps=float(spec.get("fps", 30.0)),
+            fourcc=spec.get("fourcc"),
+        )
+        right = V4l2Source(
+            name=name+' right',
+            device=spec.get("device_right", "/dev/video1"),
+            width=int(spec["width"]),
+            height=int(spec["height"]),
+            fps=float(spec.get("fps", 30.0)),
+            fourcc=spec.get("fourcc"),
+        )
+
+        return [PairedFrameSource(name=name, left=left, right=right)]
+        
     if kind == "oakd":
         # ``stereo: true`` shorthand for ``mode: stereo``; explicit mode wins.
         mode = spec.get("mode", "stereo" if stereo else "mono")
