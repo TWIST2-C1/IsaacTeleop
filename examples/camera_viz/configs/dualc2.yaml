@@ -43,6 +43,7 @@ display:
   clear_color: [0.0, 0.0, 0.0, 0.0]
   placements:
     dualcam:                        # size defaults to 1.0 m wide × aspect-derived height
-      lock_mode: lazy
-      distance: 1.0
-      stereo_baseline_mm: 60
+      lock_mode: head
+      size: [1.0, 0.5625]
+      distance: 1.5
+      offset_x: 0.6
