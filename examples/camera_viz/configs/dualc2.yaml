@@ -24,7 +24,7 @@ cameras:
     device_left: /dev/video0
     device_right: /dev/video2
     width: 1920
-    height: 1080
+    height: 1280
     fps: 30
     rtp:                        # used by camera_streamer + source: rtp receivers
       port: 5000
