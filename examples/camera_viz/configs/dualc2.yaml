@@ -21,8 +21,8 @@ cameras:
   - name: dualcam
     enabled: true
     type: v4l2stereo
-    device_left: /dev/video0
-    device_right: /dev/video2
+    device_left: /dev/video1
+    device_right: /dev/video4
     width: 1920
     height: 1280
     fps: 30
@@ -44,6 +44,18 @@ display:
   placements:
     dualcam:                        # size defaults to 1.0 m wide × aspect-derived height
       lock_mode: head
-      size: [1.0, 0.5625]
+      # lock_mode: lazy
+      # look_away_angle_deg: 2.0
+      # reposition_distance: 0.2
+      # reposition_delay_s: 0.1
+      # transition_duration_s: 0.3
+      size: [2.0, 1.333]
       distance: 1.5
-      offset_x: 0.6
+      offset_x: 0
+      shape: cylinder           # quad (default) | cylinder | equirect
+      compositor: openxr    # openxr (default: the OpenXR runtime
+                            # composites the layer) | televiz (built-in
+                            # compositor; quad shape only)
+      cylinder_radius_m: 1.5    # cylinder only
+      cylinder_angle_deg: 120    # cylinder only
+
